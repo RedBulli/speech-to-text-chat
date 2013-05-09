@@ -26,7 +26,6 @@ requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
 
     recStatus = false
     recognition = new webkitSpeechRecognition()
-    recognition.continuous = true
     recognition.interimResults = false
     recognition.lang = 'fi-FI'
     recognition.onresult = (event)  -> 
@@ -37,15 +36,46 @@ requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
       return false
     recognition.onstart = (event) ->
       recStatus = true
-      $('#micToggle').html('Stop!')
     recognition.onend = (event)  -> 
       recStatus = false
-      $('#micToggle').html('Start chatting!')
+      recognition.continuous = false
+      resetUi()
+    recognition.onaudiostart = (event) ->
+      $('#audioStatus .value').html('Mic is on!')
+    recognition.onaudioend = (event) ->
+      $('#audioStatus .value').html('Mic is off!')
+    recognition.onsoundstart = (event) ->
+      $('#soundStatus .value').html('Hearing sounds!')
+    recognition.onsoundend = (event) ->
+      $('#soundStatus .value').html('No sounds coming!')
+    recognition.onspeechstart = (event) ->
+      $('#speechStatus .value').html('Hearing speech!')
+    recognition.onspeechend = (event) ->
+      $('#speechStatus .value').html('No speech coming!')
+
+    resetUi = () ->
+      $('#continuousToggle').html('Continuous recording').removeAttr('disabled')
+      $('#pressToggle').html('Hold pressed to speak').removeAttr('disabled')
+
     $.ready(
-      $('#micToggle').click () ->
+      resetUi()
+      $('#continuousToggle').click () ->
+        recognition.continuous = true
         if recStatus == false
           recognition.start()
+          $('#continuousToggle').html('Stop continuous recording')
+          $('#pressToggle').attr('disabled', 'disabled')
         else
+          recognition.stop()
+      $('#pressToggle').mousedown () ->
+        if recStatus == false
+          recognition.start()
+          $('#continuousToggle').attr('disabled', 'disabled')
+          $('#pressToggle').html('Release to analyze speech')
+      $('#pressToggle').mouseup () ->
+        if recStatus == true
           recognition.stop()
     )
 )
+
+

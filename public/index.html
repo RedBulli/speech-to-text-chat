@@ -15,12 +15,15 @@
 <body>
   <p>Speech to Text Chat. Works only with (latest?) Chrome Browser. Be patient after speaking...</p>
   <p>Btw. Speak Finnish</p>
-  <button id='micToggle'>Start speaking!</button><br>
-  <ul id="speechText">
-    </ul>
+  <button id='pressToggle'></button> OR <button id='continuousToggle'></button><br>
+  <ul id="status">
+    <li id="audioStatus">Audio status: <span class="value">OFF</span></li>
+    <li id="soundStatus">Sound status: <span class="value">OFF</span></li>
+    <li id="speechStatus">Speech status: <span class="value">OFF</span></li>
+  </ul>
   <p id="errors"></p>
-
-
+  <ul id="speechText">
+  </ul>
   <script id="texts-template" type="text/x-handlebars-template">
   {{#each texts}}
     <ul id="speechText">
