@@ -1,4 +1,4 @@
-node_backbone_socket
+speech_to_text_chat
 ====================
 
 ## compile coffee -> js:
