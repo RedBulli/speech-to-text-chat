@@ -1,11 +1,11 @@
 node_backbone_socket
 ====================
 
-compile coffee -> js:
+##compile coffee -> js:
 coffee --compile  --watch --output ./ coffees/
 
-install node modules:
-npm install -g bower bower-installer
-npm install
-bower install
-bower-installer
+##install node modules:
+1. npm install -g bower bower-installer
+2. npm install
+3. bower install
+4. bower-installer install
