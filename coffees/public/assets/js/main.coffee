@@ -59,6 +59,7 @@ requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
 
     $.ready(
       $('#application').show()
+      $('#loading').remove()
       resetUi()
       $('#continuousToggle').click () ->
         recognition.continuous = true
