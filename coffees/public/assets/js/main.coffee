@@ -58,6 +58,7 @@ requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
       $('#pressToggle').html('Hold pressed to speak').removeAttr('disabled')
 
     $.ready(
+      $('#application').show()
       resetUi()
       $('#continuousToggle').click () ->
         recognition.continuous = true
