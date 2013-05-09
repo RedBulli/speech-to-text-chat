@@ -1,11 +1,13 @@
-node_backbone_socket
+speech_to_text_chat
 ====================
 
-##compile coffee -> js:
+## compile coffee -> js:
 coffee --compile  --watch --output ./ coffees/
 
-##install node modules:
+## install node modules:
 1. npm install -g bower bower-installer
 2. npm install
-3. bower install
-4. bower-installer install
+
+## install js-dependencies
+1. bower install
+2. bower-installer install
