@@ -1,0 +1,12 @@
+{ "name" : "speech_to_text_chat", 
+"version" : "0.1.0",
+  "dependencies" : {
+    "underscore": "latest",
+    "backbone" : "latest",
+    "node-static": "latest",
+    "socket.io": "latest",
+    "requirejs": "latest",
+    "qunitjs": "latest"
+  },
+  "scripts": {"start": "node server.js"}
+}

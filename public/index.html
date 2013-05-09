@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Speech To Text Chat</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script data-main="/assets/js/main.js" src="/assets/js/lib/require.js"></script>
+  <style>
+    #speechText {
+      height: 30em;
+      overflow: scroll;
+    }
+  </style>
+</head>
+<body>
+  <p>Speech to Text Chat. Works only with (latest?) Chrome Browser. Be patient after speaking...</p>
+  <p>Btw. Speak Finnish</p>
+  <button id='micToggle'>Start speaking!</button><br>
+  <ul id="speechText">
+    </ul>
+  <p id="errors"></p>
+
+
+  <script id="texts-template" type="text/x-handlebars-template">
+  {{#each texts}}
+    <ul id="speechText">
+      <li>{{> text}}</li>
+    </ul>
+  {{/each}}
+  </script>
+  <script id="text-template" type="text/x-handlebars-template">
+    <div class="text">
+      {{date}} [User {{nickname}}]: {{text}}
+    </div>
+</script>
+</body>
+</html>
