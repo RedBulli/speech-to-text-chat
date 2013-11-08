@@ -1,5 +1,6 @@
 speech_to_text_chat
 ====================
+Reuses the same backbone model file on the server and the client. Useful for validation on both sides etc.
 
 ## compile coffee -> js:
 coffee --compile  --watch --output ./ coffees/
