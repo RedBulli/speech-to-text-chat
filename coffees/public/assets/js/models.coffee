@@ -1,15 +1,14 @@
-define(['./backbone-sync.js', 'backbone'],
-  (sync, Backbone) ->
-    Backbone.sync = sync
-    class Models
+define ['./backbone-sync.js', 'backbone'], (sync, Backbone) ->
+  Backbone.sync = sync
 
-    class Models.TextModel extends Backbone.Model
-      validate: (attrs, options) ->
-        return
+  class Models
 
-    class Models.TextsModel extends Backbone.Collection
-      model: Models.TextsModel
-      comparator: (textModel) ->
-        -textModel.get('date')
-    Models
-)
+  class Models.Message extends Backbone.Model
+    validate: (attrs, options) ->
+
+  class Models.Messages extends Backbone.Collection
+    model: Messages
+    comparator: (text) ->
+      -text.get('date')
+
+  Models

@@ -1,27 +1,26 @@
-define(['backbone', 'handlebars'],
-  (Backbone, Handlebars) ->
-    class Views
-    class Views.TextView extends Backbone.View
-      initialize: () ->
-        this.template = Handlebars.compile($('#text-template').html());
-      render: () ->
-        this.$el.html(this.template(this.model.toJSON()))
+define ['backbone', 'handlebars'], (Backbone, Handlebars) ->
+  class Views
+  class Views.MessageView extends Backbone.View
+    initialize: ->
+      @template = Handlebars.compile($('#text-template').html())
 
-    class Views.TextsView extends Backbone.View
-      initialize: () ->
-        _.bindAll(this, 'render');
-        this.collection.on('add', this.render)
-      render: () ->
-        listElement = this.$el
-        #TODO Show only last 50
-        $('#errors').html('')
-        listElement.empty()
-        this.collection.each((textModel) ->
-          element = $('<li></li>')
-          listElement.append(element)
-          textView = new Views.TextView({el: element, model: textModel}).render()
-        )
-      renderError: (error) ->
-        $('#errors').html(error)
-    Views
-)
+    render: ->
+      @$el.html(@template(@model.toJSON()))
+
+  class Views.MessagesView extends Backbone.View
+    initialize: ->
+      _.bindAll(@, 'render')
+      @collection.on('add', @render)
+
+    render: ->
+      $('#errors').html('')
+      @$el.empty()
+      @collection.each (textModel) =>
+        element = $('<li></li>')
+        @$el.append(element)
+        textView = new Views.MessageView(el: element, model: textModel).render()
+
+    renderError: (error) ->
+      $('#errors').html(error)
+
+  Views

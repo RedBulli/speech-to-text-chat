@@ -1,45 +1,37 @@
-requirejs.config({
-  paths: {
-    'jquery': '/assets/js/lib/jquery',
-    'underscore': '/assets/js/lib/underscore',
-    'backbone': '/assets/js/lib/backbone',
-    'bacon': '/assets/js/lib/Bacon',
-    'handlebars': '/assets/js/lib/handlebars',
-  },
-  shim: {
-    'handlebars': {
+requirejs.config
+  paths:
+    jquery: '/assets/js/lib/jquery/dist/jquery'
+    underscore: '/assets/js/lib/underscore-amd/underscore'
+    backbone: '/assets/js/lib/backbone-amd/backbone'
+    handlebars: '/assets/js/lib/handlebars/handlebars'
+  shim:
+    handlebars:
       exports: 'Handlebars'
-    }
-  }
-})
-requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
-  ($, Bacon, Models, Views) ->
-    $.fn.asEventStream = Bacon.$.asEventStream;
+
+requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.js'],
+  ($, _, Models, Views) ->
     socketio = io.connect(window.location.origin)
     window.socketio = socketio
-    textsModel = new Models.TextsModel()
+    messages = new Models.Messages()
     socketio.on 'textModel', (textModel) -> 
       textModel.date = new Date(Date.parse(textModel.date))
-      textsModel.add(new Models.TextModel(textModel))
-    textsView = new Views.TextsView({el: '#speechText', collection: textsModel})
-    textsView.render()
+      messages.add(new Models.Message(textModel))
 
     recStatus = false
+
     recognition = new webkitSpeechRecognition()
     recognition.interimResults = false
-    recognition.lang = 'fi-FI'
+    recognition.lang = 'en-US'
     recognition.onresult = (event)  -> 
-      final_transcript = ''
-      for i in [event.resultIndex...event.results.length]
-        final_transcript += event.results[i][0].transcript;
-      socketio.emit('msg', final_transcript)
-      return false
+      socketio.emit 'msg', _.map event.results, (result) ->
+        result[0].transcript
+      false
     recognition.onstart = (event) ->
       recStatus = true
     recognition.onend = (event)  -> 
       recStatus = false
       recognition.continuous = false
-      resetUi()
+      resetButtons()
     recognition.onaudiostart = (event) ->
       $('#audioStatus .value').html('Mic is on!')
     recognition.onaudioend = (event) ->
@@ -53,31 +45,34 @@ requirejs(['jquery', 'bacon', './assets/js/models.js', './assets/js/views.js'],
     recognition.onspeechend = (event) ->
       $('#speechStatus .value').html('No speech coming!')
 
-    resetUi = () ->
+    resetButtons = ->
       $('#continuousToggle').html('Continuous recording').removeAttr('disabled')
       $('#pressToggle').html('Hold pressed to speak').removeAttr('disabled')
 
-    $.ready(
-      $('#application').show()
-      $('#loading').remove()
-      resetUi()
-      $('#continuousToggle').click () ->
+    bindUiEvents = ->
+      $('#continuousToggle').click ->
         recognition.continuous = true
-        if recStatus == false
+        unless recStatus
           recognition.start()
           $('#continuousToggle').html('Stop continuous recording')
           $('#pressToggle').attr('disabled', 'disabled')
         else
           recognition.stop()
-      $('#pressToggle').mousedown () ->
-        if recStatus == false
+      $('#pressToggle').mousedown ->
+        unless recStatus
           recognition.start()
           $('#continuousToggle').attr('disabled', 'disabled')
           $('#pressToggle').html('Release to analyze speech')
-      $('#pressToggle').mouseup () ->
-        if recStatus == true
+      $('#pressToggle').mouseup ->
+        if recStatus
           recognition.stop()
-    )
-)
 
+    startApp = ->
+      textsView = new Views.MessagesView(el: '#speechText', collection: messages)
+      textsView.render()
+      bindUiEvents()
+      $('#application').show()
+      $('#loading').remove()
+      resetButtons()
 
+    $(document).ready(startApp)

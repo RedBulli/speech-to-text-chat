@@ -1,12 +1,25 @@
-{ "name" : "speech_to_text_chat", 
-"version" : "0.1.0",
-  "dependencies" : {
-    "underscore": "latest",
-    "backbone" : "latest",
-    "node-static": "latest",
-    "socket.io": "latest",
-    "requirejs": "latest",
-    "qunitjs": "latest"
+{
+  "name": "speech_to_text_chat",
+  "version": "0.1.1",
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "bower": "^1.3.12",
+    "coffee-script": "^1.8.0",
+    "node-static": "^0.7.6",
+    "pem": "^1.5.0",
+    "requirejs": "^2.1.15",
+    "socket.io": "^1.3.2",
+    "underscore": "^1.7.0"
   },
-  "scripts": {"start": "node server.js"}
+  "engines": {
+    "node": ">=0.10.35"
+  },
+  "scripts": {
+    "bower": "node_modules/bower/bin/bower install",
+    "coffee": "node_modules/coffee-script/bin/coffee --compile --output ./ coffees/",
+    "coffee-watch": "node_modules/coffee-script/bin/coffee --compile  --watch --output ./ coffees/",
+    "prestart": "node_modules/coffee-script/bin/coffee --compile --output ./ coffees/",
+    "postinstall": "npm run-script bower",
+    "start": "node server.js"
+  }
 }
