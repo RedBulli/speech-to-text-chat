@@ -1,4 +1,4 @@
-define ['fs', 'https', 'pem'], (fs, https, pem) ->
+define ['fs', 'pem'], (fs, pem) ->
   keyFile = 'example-server.key'
   certFile = 'example-server.crt'
 
@@ -24,8 +24,4 @@ define ['fs', 'https', 'pem'], (fs, https, pem) ->
       throw err if err
       callback(keys)
 
-  listen = (port, processRequest, callback) ->
-    getCertificates (keys) ->
-      callback(https.createServer(keys, processRequest).listen(port))
-
-  listen: listen
+  getCertificates
