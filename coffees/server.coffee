@@ -18,6 +18,5 @@ requirejs ['express', 'http', 'fs', 'socket.io', './app.js', 'https', './get-own
 
     getServer (httpServer) ->
       io = socketIO(httpServer)
-      exports.socketio = io
       application.initialize(io)
       httpServer.listen(process.env.PORT || 4001)

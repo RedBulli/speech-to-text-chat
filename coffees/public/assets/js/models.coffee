@@ -1,6 +1,4 @@
-define ['./backbone-sync.js', 'backbone'], (sync, Backbone) ->
-  Backbone.sync = sync
-
+define ['backbone'], (Backbone) ->
   class Models
 
   class Models.Message extends Backbone.Model

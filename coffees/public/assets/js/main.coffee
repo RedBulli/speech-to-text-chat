@@ -11,7 +11,6 @@ requirejs.config
 requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.js'],
   ($, _, Models, Views) ->
     socketio = io.connect(window.location.origin)
-    window.socketio = socketio
     messages = new Models.Messages()
     socketio.on 'textModel', (textModel) ->
       messages.add(new Models.Message(textModel, parse: true))
