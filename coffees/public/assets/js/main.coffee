@@ -17,21 +17,12 @@ requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.j
       textModel.date = new Date(Date.parse(textModel.date))
       messages.add(new Models.Message(textModel))
 
-    recStatus = false
-
     recognition = new webkitSpeechRecognition()
     recognition.interimResults = false
     recognition.lang = 'en-US'
-    recognition.onresult = (event)  -> 
-      socketio.emit 'msg', _.map event.results, (result) ->
-        result[0].transcript
+    recognition.onresult = (event)  ->
+      socketio.emit 'msg', event.results[event.resultIndex][0].transcript
       false
-    recognition.onstart = (event) ->
-      recStatus = true
-    recognition.onend = (event)  -> 
-      recStatus = false
-      recognition.continuous = false
-      resetButtons()
     recognition.onaudiostart = (event) ->
       $('#audioStatus .value').html('Mic is on!')
     recognition.onaudioend = (event) ->
@@ -49,23 +40,35 @@ requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.j
       $('#continuousToggle').html('Continuous recording').removeAttr('disabled')
       $('#pressToggle').html('Hold pressed to speak').removeAttr('disabled')
 
+    stopRecognition = ->
+      recognition.stop()
+      recognition.continuous = false
+      resetButtons()
+
+    stopContinuousRecognition = ->
+      recognition.continuous = false
+      stopRecognition()
+
+    startContinuousRecognition = ->
+      recognition.continuous = true
+      recognition.start()
+      $('#continuousToggle').html('Stop continuous recording')
+      $('#pressToggle').attr('disabled', 'disabled')
+
     bindUiEvents = ->
       $('#continuousToggle').click ->
-        recognition.continuous = true
-        unless recStatus
-          recognition.start()
-          $('#continuousToggle').html('Stop continuous recording')
-          $('#pressToggle').attr('disabled', 'disabled')
+        if recognition.continuous
+          stopContinuousRecognition()
         else
-          recognition.stop()
+          startContinuousRecognition()
+
       $('#pressToggle').mousedown ->
-        unless recStatus
           recognition.start()
           $('#continuousToggle').attr('disabled', 'disabled')
           $('#pressToggle').html('Release to analyze speech')
+
       $('#pressToggle').mouseup ->
-        if recStatus
-          recognition.stop()
+        stopRecognition()
 
     startApp = ->
       textsView = new Views.MessagesView(el: '#speechText', collection: messages)
