@@ -1,9 +1,11 @@
 Speech to Text Chat
 ====================
 
-Reuses the same Backbone models on the server and the client. Useful e.g. for reusing validation.
+Testing the Chrome's webkitSpeechRecognition API. Sending messages with Socket.io and reusing the same Backbone model scripts on the server and the client with the help of RequireJS.
 
 Uses https by default to avoid the browser asking for the permission to use microphone every time the mic goes back on.
+
+Try it out at: [https://speech-to-text-chat.herokuapp.com/](https://speech-to-text-chat.herokuapp.com/)
 
 ## Get started
 ```bash
