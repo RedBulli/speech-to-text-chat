@@ -3,10 +3,14 @@ requirejs.config
   nodeRequire: require
 
 protocol = process.argv[2] || 'https'
+port = process.env.PORT || 4001
+cache = process.env.CACHE
+if cache == undefined
+  cache = false
 
 requirejs ['fs', 'node-static', 'socket.io', './app.js', './https_server', 'http'], 
   (fs, staticServer, io, application, httpsServer, http) ->
-    file = new (staticServer.Server)('./public', cache: false)
+    file = new (staticServer.Server)('./public', cache: cache)
 
     processRequest = (request, response) ->
       file.serve(request, response).addListener 'error', (err) ->
@@ -23,6 +27,6 @@ requirejs ['fs', 'node-static', 'socket.io', './app.js', './https_server', 'http
       else
         httpsServer
 
-    server.listen 4001, processRequest, (listeningServer) ->
+    server.listen port, processRequest, (listeningServer) ->
       exports.socketio = io.listen(listeningServer)
       application.initialize(exports.socketio)
