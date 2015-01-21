@@ -2,8 +2,10 @@ requirejs = require 'requirejs'
 requirejs.config
   nodeRequire: require
 
-requirejs ['fs', 'node-static', 'socket.io', './app.js', './https_server'], 
-  (fs, staticServer, io, application, httpsServer) ->
+protocol = process.argv[2] || 'https'
+
+requirejs ['fs', 'node-static', 'socket.io', './app.js', './https_server', 'http'], 
+  (fs, staticServer, io, application, httpsServer, http) ->
     file = new (staticServer.Server)('./public', cache: false)
 
     processRequest = (request, response) ->
@@ -12,6 +14,15 @@ requirejs ['fs', 'node-static', 'socket.io', './app.js', './https_server'],
       request.addListener 'end', ->
         file.serve request, response
 
-    httpsServer.listen 4001, processRequest, (listeningServer) ->
+    server =
+      if protocol == 'http'
+        listen: (port, requestProcessor, callback) ->
+          callback(
+            http.createServer(requestProcessor).listen(port)
+          )
+      else
+        httpsServer
+
+    server.listen 4001, processRequest, (listeningServer) ->
       exports.socketio = io.listen(listeningServer)
       application.initialize(exports.socketio)

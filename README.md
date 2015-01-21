@@ -9,9 +9,10 @@ Uses https by default to avoid the browser asking for the permission to use micr
 ## Get started
 ```bash
 $ npm install # Installs dependencies & compiles coffees 
-$ npm start # Starts server
+$ npm start # Starts https server
+$ npm start http # Starts http
 ```
-Head to https://localhost:4001 and accept the self signed certificates
+Head to http or https://localhost:4001 (and accept the self signed certificates).
 
 ## Playing around
 ```bash
