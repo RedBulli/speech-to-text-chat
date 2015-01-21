@@ -27,6 +27,7 @@ requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.j
       $('#audioStatus .value').html('Mic is on!')
     recognition.onaudioend = (event) ->
       $('#audioStatus .value').html('Mic is off!')
+      stopRecognition()
     recognition.onsoundstart = (event) ->
       $('#soundStatus .value').html('Hearing sounds!')
     recognition.onsoundend = (event) ->
