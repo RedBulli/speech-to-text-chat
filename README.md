@@ -1,6 +1,5 @@
 Speech to Text Chat
 ====================
-Reuses the same backbone model file on the server and the client. Useful for validation on both sides etc.
 
 Reuses the same Backbone models on the server and the client. Useful e.g. for reusing validation.
 
@@ -10,7 +9,9 @@ Uses https by default to avoid the browser asking for the permission to use micr
 ```bash
 $ npm install # Installs dependencies & compiles coffees 
 $ npm start # Starts https server
-$ npm start http # Starts http
+
+# Alternatively as http server
+$ npm start http
 ```
 Head to http or https://localhost:4001 (and accept the self signed certificates).
 
