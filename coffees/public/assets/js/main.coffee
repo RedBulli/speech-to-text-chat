@@ -13,9 +13,8 @@ requirejs ['jquery', 'underscore', './assets/js/models.js', './assets/js/views.j
     socketio = io.connect(window.location.origin)
     window.socketio = socketio
     messages = new Models.Messages()
-    socketio.on 'textModel', (textModel) -> 
-      textModel.date = new Date(Date.parse(textModel.date))
-      messages.add(new Models.Message(textModel))
+    socketio.on 'textModel', (textModel) ->
+      messages.add(new Models.Message(textModel, parse: true))
 
     recognition = new webkitSpeechRecognition()
     recognition.interimResults = false
