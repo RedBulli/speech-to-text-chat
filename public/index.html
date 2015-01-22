@@ -13,6 +13,22 @@
     #application {
       display: none;
     }
+    #icons {
+      margin: 1em;
+    }
+    #pressToggle {
+      width: 3em;
+      display: inline-block;
+    }
+    #soundIndicator {
+      width: 2em;
+      display: inline-block;
+      margin-right: 1em;
+    }
+    object {
+      pointer-events: none;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -21,13 +37,14 @@
     LOADING...
   </div>
   <div id="application">
-    <button id='pressToggle'>Press to speak</button><br>
-    <ul id="status">
-      <li id="audioStatus">Audio status: <span class="value">OFF</span></li>
-      <li id="soundStatus">Sound status: <span class="value">OFF</span></li>
-      <li id="speechStatus">Speech status: <span class="value">OFF</span></li>
-    </ul>
-    <p id="errors"></p>
+    <div id="icons">
+      <div id="soundIndicator">
+        <object id="sound" data="/img/sound_turned.svg" type="image/svg+xml"></object>
+      </div>
+      <div id="pressToggle">
+        <object id="mic" data="/img/microphone.svg" type="image/svg+xml"></object>
+      </div>
+    </div>
     <ul id="speechText">
     </ul>
   </div>

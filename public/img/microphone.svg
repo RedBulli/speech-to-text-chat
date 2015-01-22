@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2832" viewBox="0 0 142.48 288.95" version="1.0">
+  <g id="layer1" stroke="green" fill="green" transform="translate(-120.19 -15.429)">
+    <g id="g4730" transform="matrix(4.6513 0 0 4.6513 -1505.4 -340.27)">
+      <rect id="rect4651" ry="66.053" transform="matrix(.13972 0 0 .14761 311.88 25.075)" height="303.53" width="132.11" y="350.64" x="312.66" stroke-width="5"/>
+      <g id="g4725" fill="none">
+        <path id="path4653" stroke-width="23.643" transform="matrix(.14834 0 0 .14773 308.62 26.588)" d="m470.17 534.1v48.16c0 49.39-40.79 89.14-91.45 89.14-50.67 0-91.46-39.75-91.46-89.14v-48.16"/>
+        <path id="path4655" stroke-width="22.205" transform="matrix(.16856 0 0 .14739 300.96 26.794)" d="m378.72 670.59v76.07"/>
+        <path id="path4657" stroke-width="32.415" transform="matrix(.079099 0 0 .14739 334.84 26.794)" d="m247.7 746.66h262.03"/>
+      </g>
+    </g>
+  </g>
+</svg>
