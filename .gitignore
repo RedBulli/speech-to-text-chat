@@ -20,4 +20,5 @@ components
 *.pem
 *.crt
 *.key
-public/assets
+public/js
+.DS_STORE

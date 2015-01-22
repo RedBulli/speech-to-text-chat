@@ -1,4 +1,4 @@
-define ['./public/assets/js/models.js'], (Models) ->
+define ['./public/js/models.js'], (Models) ->
   connections = 0
 
   initialize: (socketio) ->
