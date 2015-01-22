@@ -16,13 +16,12 @@
   </style>
 </head>
 <body>
-  <p>Speech to Text Chat. Works only with (latest?) Chrome Browser. Be patient after speaking...</p>
-  <p>Btw. Speak English</p>
+  <p>Speech to Text Chat. Works only with new Chrome browsers. Speak English.</p>
   <div id="loading">
     LOADING...
   </div>
   <div id="application">
-    <button id='pressToggle'></button> OR <button id='continuousToggle'></button><br>
+    <button id='pressToggle'>Press to speak</button><br>
     <ul id="status">
       <li id="audioStatus">Audio status: <span class="value">OFF</span></li>
       <li id="soundStatus">Sound status: <span class="value">OFF</span></li>
@@ -41,7 +40,7 @@
   </script>
   <script id="text-template" type="text/x-handlebars-template">
     <div class="text">
-      {{date}} [User {{nickname}}]: {{text}}
+      {{date}} [{{nickname}}]: {{text}}
     </div>
 </script>
 </body>

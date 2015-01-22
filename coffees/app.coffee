@@ -8,8 +8,8 @@ define ['./public/assets/js/models.js'], (Models) ->
 
       socketio.sockets.emit 'textModel',
         date: new Date(),
-        nickname: null,
-        text: "New user: #{nickname}"
+        nickname: nickname,
+        text: "--- Joined the chat ---"
 
       socket.on 'msg', (text) ->
         textModel = new Models.Message

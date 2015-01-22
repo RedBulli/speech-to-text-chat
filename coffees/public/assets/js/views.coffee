@@ -4,8 +4,13 @@ define ['backbone', 'handlebars'], (Backbone, Handlebars) ->
     initialize: ->
       @template = Handlebars.compile($('#text-template').html())
 
+    toViewModel: ->
+      date: @model.get('date').toLocaleTimeString(),
+      nickname: @model.get('nickname'),
+      text: @model.get('text')
+
     render: ->
-      @$el.html(@template(@model.toJSON()))
+      @$el.html(@template(@toViewModel()))
 
   class Views.MessagesView extends Backbone.View
     initialize: ->
