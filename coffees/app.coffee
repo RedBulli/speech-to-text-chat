@@ -1,5 +1,4 @@
 define ['./public/assets/js/models.js'], (Models) ->
-  texts = new Models.Messages()
   connections = 0
 
   initialize: (socketio) ->
@@ -17,5 +16,4 @@ define ['./public/assets/js/models.js'], (Models) ->
           date: new Date(),
           nickname: nickname,
           text: text
-        texts.add textModel
         socketio.sockets.emit 'textModel', textModel
