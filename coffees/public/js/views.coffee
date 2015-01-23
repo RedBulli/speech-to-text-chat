@@ -1,16 +1,11 @@
-define ['backbone', 'handlebars'], (Backbone, Handlebars) ->
+define ['backbone'], (Backbone) ->
   class Views
   class Views.MessageView extends Backbone.View
-    initialize: ->
-      @template = Handlebars.compile($('#message-template').html())
-
-    toViewModel: ->
-      date: @model.get('date').toLocaleTimeString(),
-      nickname: @model.get('nickname'),
-      text: @model.get('text')
+    getFormattedDate: ->
+      @model.get('date').toLocaleTimeString()
 
     render: ->
-      @$el.html(@template(@toViewModel()))
+      @$el.html("#{@getFormattedDate()} [#{@model.get('nickname')}]: #{@model.get('text')}")
 
   class Views.MessagesView extends Backbone.View
     render: ->
