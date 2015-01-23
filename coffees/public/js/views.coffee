@@ -2,7 +2,7 @@ define ['backbone', 'handlebars'], (Backbone, Handlebars) ->
   class Views
   class Views.MessageView extends Backbone.View
     initialize: ->
-      @template = Handlebars.compile($('#text-template').html())
+      @template = Handlebars.compile($('#message-template').html())
 
     toViewModel: ->
       date: @model.get('date').toLocaleTimeString(),
@@ -13,19 +13,14 @@ define ['backbone', 'handlebars'], (Backbone, Handlebars) ->
       @$el.html(@template(@toViewModel()))
 
   class Views.MessagesView extends Backbone.View
-    initialize: ->
-      _.bindAll(@, 'render')
-      @collection.on('add', @render)
-
     render: ->
-      $('#errors').html('')
       @$el.empty()
-      @collection.each (textModel) =>
-        element = $('<li></li>')
-        @$el.append(element)
-        textView = new Views.MessageView(el: element, model: textModel).render()
+      @collection.each (message) => @renderOne(message)
+      @collection.on 'add', (message) => @renderOne(message)
 
-    renderError: (error) ->
-      $('#errors').html(error)
+    renderOne: (message) ->
+      element = $('<li></li>')
+      @$el.prepend(element)
+      textView = new Views.MessageView(el: element, model: message).render()
 
   Views

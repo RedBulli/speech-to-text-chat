@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
   <title>Speech To Text Chat</title>
   <script src="/socket.io/socket.io.js"></script>
   <script data-main="/js/main.js" src="/js/lib/requirejs/require.js"></script>
   <style>
-    #speechText {
-      height: 30em;
-      overflow: scroll;
-    }
     #application {
       display: none;
     }
@@ -33,7 +29,6 @@
   </style>
 </head>
 <body>
-  <p>Speech to Text Chat. Works only with new Chrome browsers. Speak English.</p>
   <div id="loading">
     LOADING...
   </div>
@@ -46,20 +41,11 @@
         <object id="mic" data="/img/microphone.svg" type="image/svg+xml"></object>
       </div>
     </div>
-    <ul id="speechText">
-    </ul>
   </div>
-  <script id="texts-template" type="text/x-handlebars-template">
-  {{#each texts}}
-    <ul id="speechText">
-      <li>{{> text}}</li>
-    </ul>
-  {{/each}}
+  <ul id="messages">
+  </ul>
+  <script id="message-template" type="text/x-handlebars-template">
+    {{date}} [{{nickname}}]: {{text}}
   </script>
-  <script id="text-template" type="text/x-handlebars-template">
-    <div class="text">
-      {{date}} [{{nickname}}]: {{text}}
-    </div>
-</script>
 </body>
 </html>

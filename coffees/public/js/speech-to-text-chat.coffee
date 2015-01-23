@@ -1,16 +1,18 @@
 define ['jquery', 'underscore', 'models', 'views', 'recognition'], ($, _, Models, Views, recognition) ->
   ->
     messages = new Models.Messages()
-    textsView = new Views.MessagesView(el: '#speechText', collection: messages)
+    textsView = new Views.MessagesView(el: '#messages', collection: messages)
+    messages.add(new Models.Message(
+      date: new Date(),
+      nickname: "",
+      text: " -- Welcome to Speech to Text Chat. Works only with new Chrome browsers. Speak English. --"
+    ))
     socketio = io.connect(window.location.origin)
     socketio.on 'textModel', (textModel) ->
       messages.add(new Models.Message(textModel, parse: true))
 
     recognition.addEventListener 'finalResult', (event) ->
       socketio.emit 'msg', event.detail
-
-    recognition.addEventListener 'audiostart', ->
-      setMicColor("pink")
 
     recognition.addEventListener 'audioend', ->
       setMicColor("green")
